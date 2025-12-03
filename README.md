@@ -1,5 +1,8 @@
 # Port scanner
 
+> 🛠️ notice:
+> Scanner V2 is still under production and currently only range scan is available. Scanner V2 will include threading which allows you to preform quicker port scans.
+
 This is a simple TCP port scanner I designed for ethical penetration testing and cybersecurity studying. This tool can preform specific port scans or it can scan a range of ports.
 
 > ⚠️ This tool was build for ethical use only!  
