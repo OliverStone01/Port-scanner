@@ -250,15 +250,3 @@ def logSpecificScan(address, port, result, scanTime):
 
 
 main()
-
-
-# Get time of results
-#    date = datetime.datetime.now()
-
-# Print scan summary
-#print(
-#"\n"
-#"Date: " + str(date) + "\n"
-#"IP Address: " + address + "\n"
-#"Port: " + str(port) + "\n"
-#)
