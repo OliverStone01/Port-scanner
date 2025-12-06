@@ -78,6 +78,9 @@ def rangeScan():
 
     startTime = time.time()
 
+    openPorts = []
+    closedPorts = []
+
     with ThreadPoolExecutor(max_workers=threads) as executor:
         futures = [executor.submit(scanSinglePort, address, port)
                    for port in range(firstPort, (lastPort + 1))]
@@ -85,12 +88,19 @@ def rangeScan():
         for future in futures:
             port, is_open = future.result()
             if is_open:
+                openPorts.append(port)
                 print(f"Port {port} is open")
             else:
+                closedPorts.append(port)
                 print(f"Port {port} is closed")
 
-    totalTime = (time.time()) - startTime
-    print(f"{round(totalTime, 4)} secs")
+    totalTime = round(((time.time()) - startTime), 4)
+    print(f"{totalTime} secs")
+
+    if input("Do you want to save results to a .txt file? (y/n):").lower() == 'y':
+        logRangeScan(address, firstPort, lastPort, threads, openPorts, closedPorts, totalTime)
+
+
 
 
 # Defining specific scan function
@@ -119,17 +129,21 @@ def specificScan():
 
     if result == 0:
         print(
-             "Port " + str(port) + " is open.\n"
+             "\nPort " + str(port) + " is open.\n"
         )
     
     else:
         print(
-            "Port " + str(port) + " is closed.\n"
+            "\nPort " + str(port) + " is closed.\n"
         )
 
-    totalTime = (time.time()) - startTime
+    totalTime = round(((time.time()) - startTime), 4)
+    print(f"{totalTime} secs")
 
-    print(f"{round(totalTime, 4)} secs")
+    if input("Do you want to save results to a .txt file? (y/n):").lower() == 'y':
+        logSpecificScan(address, port, result, totalTime)
+
+
 
 
 def scanSinglePort(address, port):
@@ -194,9 +208,45 @@ def getThreads():
                 "Invalid amount of threads"
             )
 
+def logRangeScan(address, firstPort, lastPort, threads, openPorts, closedPorts, scanTime):
+    filename = datetime.datetime.now().strftime("portScan_%Y-%m-%d_%H-%M-%S.txt")
 
-#def logData(address, ports, threads, openPorts, closedPorts, scanTime):
-    # Save scan results to a log file
+    with open(filename, 'w') as file:
+        file.write("=" * 50 + "\n")
+        file.write("PORT SCANNER LOG\n")
+        file.write("=" * 50 + "\n\n")
+        file.write(f"Target IP: {address}\n")
+        file.write(f"Port Range: {firstPort} - {lastPort}\n")
+        file.write(f"Threads Used: {threads}\n")
+        file.write(f"Scan Duration: {scanTime} secs\n")
+        file.write("=" * 50 + "\n")
+        if openPorts:
+            file.write("OPEN PORTS:\n")
+            for port in openPorts:
+                file.write(f"   - Port {port}\n")
+            
+            file.write("\n")
+        else:
+            file.write("No open ports found\n\n")
+        file.write("=" * 50 + "\n")
+        
+
+def logSpecificScan(address, port, result, scanTime):
+    filename = datetime.datetime.now().strftime("portScan_%Y-%m-%d_%H-%M-%S.txt")
+
+    with open(filename, 'w') as file:
+        file.write("=" * 50 + "\n")
+        file.write("PORT SCANNER LOG\n")
+        file.write("=" * 50 + "\n\n")
+        file.write(f"Target IP: {address}\n")
+        file.write(f"Port: {port}\n")
+        file.write(f"Scan Duration: {scanTime} secs\n")
+        file.write("=" * 50 + "\n")
+        if result == 0:
+            file.write(f"Port {port} is open\n")
+        else:
+            file.write(f"Port {port} is closed\n")
+        file.write("=" * 50 + "\n\n")
 
 
 main()
