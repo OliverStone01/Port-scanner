@@ -1,9 +1,6 @@
 # Port scanner
 
-> 🛠️ notice:
-> Scanner V3 is still under production and now include time stamps and the ability to save log files of scans for later use.
-
-#### Current version: V2
+#### Current version: V3
 
 This is a simple TCP port scanner I designed for ethical penetration testing and cybersecurity studying. This tool can preform specific port scans or it can scan a range of ports.
 
@@ -16,6 +13,7 @@ This is a simple TCP port scanner I designed for ethical penetration testing and
 - Validates IP address and port numbers
 - Display time stamps for scans
 - Using threading to improve range scan speeds
+- Able to save scans as a text file
 
 ### Requirements:
 This project only uses pythons standard library.
