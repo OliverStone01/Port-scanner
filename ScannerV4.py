@@ -44,18 +44,12 @@ def main():
                     "\n"
                     "Invalid Option\n"
                 )
-    else:
-        if argv[1] == "-help":
-            print(
-                "Port scanner\n"
-                "- - - - - - - - - -\n"
-                "To run the port scanner with propts, run 'python3 ScannerV4.py'\n"
-                "Otherwise you can use commnd line arguments:\n"
-                "For Range scan:\n"
-                "python3 ScannerV4 -RangeScan -IPaddress -FirstPort -LastPort -"
-            )
-        else:
-            print("World")
+    elif argv[1] == "-help":
+        help()
+
+
+
+
 
 
 
@@ -264,6 +258,23 @@ def logSpecificScan(address, port, result, scanTime):
         else:
             file.write(f"Port {port} is closed\n")
         file.write("=" * 50 + "\n\n")
+
+
+def help():
+    print(
+                "\nPort scanner\n\n"
+                "To run the port scanner with propts, run 'python3 ScannerV4.py'\n"
+                "Otherwise you can use commnd line arguments:\n\n"
+                "For Range scan:\n"
+                "python3 ScannerV4 -RangeScan -IPaddress -FirstPort -LastPort\n"
+                "python3 ScannerV4 -RangeScan -111.111.111.111 -100 -200\n\n"
+                "For Specific port scan:\n"
+                "python3 ScannerV4 -SpecificScan -IPaddress -Port\n"
+                "python3 ScannerV4 -SpecificScan -111.111.111.111 -200\n\n"
+                "If you wish to save your scan, you can add -Save to end of your input like such:\n"
+                "python3 ScannerV4 -SpecificScan -IPaddress -Port -Save\n"
+                "python3 ScannerV4 -SpecificScan -111.111.111.111 -200 -Save\n\n"
+            )
 
 
 main()
