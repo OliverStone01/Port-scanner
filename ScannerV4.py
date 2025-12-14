@@ -30,9 +30,41 @@ def main():
 
             # Check which option the user chose
             if scanType == "1":
+
+                # Validate IP address
+                print(
+                    "\nEnter the IP address:"
+                )
+                address = getIP()
+
+                # Get the first port number
+                print(
+                    "\n"
+                    "Enter the first port number:"
+                )
+                firstPort = getPort()
+
+                # Get the second port while making sure its larger than the first port
+                print(
+                    "\n"
+                    "Enter the last port:"
+                )
+                while True:
+                    lastPort = getPort()
+                    if lastPort > firstPort:
+                     break
+                    
+                    else:
+                        print("Last port must be larger than the first port")
+                        lastPort = getPort()
+
+                # Get the amount of threads
+                threads = getThreads()
+
                 # Run range scan funtion
-                rangeScan()
+                rangeScan(address, firstPort, lastPort, threads)
                 break
+
             elif scanType == "2":
                 # Run specific scan function
                 specificScan()
@@ -47,45 +79,33 @@ def main():
     elif argv[1] == "-help":
         help()
 
+    else:
+        if ipaddress.ip_address(argv[1]) == True:
+            address == argv[1]
+            
+            try:
+                ipaddress.ip_address(address)
+                return address
+            except ValueError:
+                print(
+                    "\n"
+                    "Invalid IP"
+                )
+                quit
 
-
-
-
-
-
-
-# Defining range scan function
-def rangeScan():
-
-    # Get IP address while validating input including checking if the IP address is valid or not
-    print(
-        "\nEnter the IP address:"
-    )
-    address = getIP()
-
-    # Get the first port number
-    print(
-        "\n"
-        "Enter the first port number:"
-    )
-    firstPort = getPort()
-
-    # Get the second port while making sure its larger than the first port
-    print(
-        "\n" \
-        "Enter the last port:"
-    )
-    while True:
-        lastPort = getPort()
-        if lastPort > firstPort:
-            break
         else:
-            print("Last port must be larger than the first port")
-            lastPort = getPort()
 
 
-    # Get the amount of threads
-    threads = getThreads()
+
+
+
+
+
+
+
+# Defining range scan function1
+
+def rangeScan(address, firstPort, lastPort, threads):
 
     startTime = time.time()
 
@@ -164,7 +184,7 @@ def scanSinglePort(address, port):
     sock.close()
     return (port, result == 0)
 
-# Defining IP validation function
+# Get IP while validating input including checking if the IP address is valid or not
 def getIP():
     while True:
         try:
