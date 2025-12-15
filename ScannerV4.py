@@ -97,6 +97,8 @@ def main():
                     "The first port must be smaller than the last port"
                 )
                 quit()
+            else:
+                rangeScan(address, firstPort, lastPort, threads)
             
 
 
@@ -369,7 +371,7 @@ def validateThreads(input):
 
     except ValueError:
         print(
-            "\nInvalid amount of threads\n"
+            "\nInvalid thread input\n"
         )
         quit()
 
