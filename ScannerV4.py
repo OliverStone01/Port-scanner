@@ -12,7 +12,9 @@ import time
 # Defining main function
 def main():
 
+    # If the user has not used command line arguments:
     if len(argv) == 1:
+
         # Title
         print(
             " - - - - - - - - - - - - - - - - \n"
@@ -28,7 +30,7 @@ def main():
             )
             scanType = input("= ")
 
-            # Check which option the user chose
+            # Check if the user choose to run a rangeScan with option 1:
             if scanType == "1":
 
                 # Validate IP address
@@ -44,7 +46,7 @@ def main():
                 )
                 firstPort = getPort()
 
-                # Get the second port while making sure its larger than the first port
+                # Get the last port while making sure its larger than the first port
                 print(
                     "\n"
                     "Enter the last port:"
