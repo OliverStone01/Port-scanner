@@ -185,6 +185,7 @@ def rangeScan(address, firstPort, lastPort, threads):
 # Defining specific scan function
 def specificScan(address, port):
     
+    # Set start time to measure how long the scan takes.
     startTime = time.time()
 
     # check the port and print if the port is open or closed
@@ -203,16 +204,19 @@ def specificScan(address, port):
             "\nPort " + str(port) + " is closed.\n"
         )
 
+    # Get current time and calculate how long the scan took.
     totalTime = round(((time.time()) - startTime), 4)
     print(f"{totalTime} secs")
 
+    # Ask the user if they want to save the scan.
     if input("Do you want to save results to a .txt file? (y/n):").lower() == 'y':
         logSpecificScan(address, port, result, totalTime)
 
 
-
-
+# Defining a single port scan for command line argument version.
 def scanSinglePort(address, port):
+
+    # check the port and print if the port is open or closed
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(0.5)
     result = sock.connect_ex((address, port))
@@ -220,7 +224,7 @@ def scanSinglePort(address, port):
     return (port, result == 0)
 
 
-# Get IP while validating input including checking if the IP address is valid or not
+# Get IP while validating input including checking if the IP address is valid.
 def getIP():
     while True:
         try:
@@ -233,7 +237,7 @@ def getIP():
                 "Invalid IP"
             )
 
-
+# Get port nuber while validating the port number is a real port number.
 def getPort():
     while True:
         try:
@@ -250,7 +254,7 @@ def getPort():
                 "\nInvalid port, try again"
             )
 
-
+# Get the amount threads the user wants to use and make sure uts a valid number.
 def getThreads():
     while True:
         print(
@@ -261,6 +265,8 @@ def getThreads():
             "Stealth (10 threads)\n"
             "Individual (single thread)\n"
         )
+
+        # Ask for the users input and if its invalid, ask the user again.
         try:
             threads = int(input("= "))
 
