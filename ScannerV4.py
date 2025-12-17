@@ -281,9 +281,14 @@ def getThreads():
                 "Invalid amount of threads"
             )
 
+
+# Defining the saving function.
 def logRangeScan(address, firstPort, lastPort, threads, openPorts, closedPorts, scanTime):
+    
+    # Set the file name to the current date and time.
     filename = datetime.datetime.now().strftime("portScan_%Y-%m-%d_%H-%M-%S.txt")
 
+    # Write the data to the file. 
     with open(filename, 'w') as file:
         file.write("=" * 50 + "\n")
         file.write("PORT SCANNER LOG\n")
