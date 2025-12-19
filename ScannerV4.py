@@ -350,9 +350,10 @@ def help():
                 "python3 ScannerV4 SpecificScan 111.111.111.111 200 Save\n\n"
             )
     
-
+# Defining the validateIP function for use with command line arguments.
 def validateIP(address):
     try:
+        # Check if the IP is valid. If so, return true, else show error message.
         ipaddress.ip_address(address)
         return address
     except ValueError:
@@ -362,7 +363,7 @@ def validateIP(address):
         )
         quit()
     
-
+# Defining function for validating port numbers.
 def validatePort(input):
     try:
         port = int(input)
